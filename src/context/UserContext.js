@@ -44,7 +44,6 @@ export const UserProvider = ({ children }) => {
     try {
       await addDoc(collection(db, "users"), user);
       toast.success("User created");
-      console.log(user);
     } catch (err) {
       toast.error(err.message);
     }
@@ -53,6 +52,7 @@ export const UserProvider = ({ children }) => {
   const updateUser = async (userData) => {
     try {
       await updateDoc(doc(db, "users", loggedInUser.id), userData);
+      toast.success("User updated");
     } catch (err) {
       toast.error(err.message);
     }
