@@ -1,6 +1,8 @@
 import { Modal, TextField } from "@mui/material";
 import { useState } from "react";
 import { useUser } from "../context/UserContext";
+import { validateUsername } from "../utils/ValidateUsername";
+import toast from "react-hot-toast";
 
 export const UserModal = ({ loggedInUser, user, showModal, setShowModal }) => {
   const { addUser, updateUser, setLoggedInUser } = useUser();
@@ -32,12 +34,18 @@ export const UserModal = ({ loggedInUser, user, showModal, setShowModal }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (loggedInUser?.email) {
-      updateUser(userValue);
+    if (validateUsername(userValue.username)) {
+      setLoggedInUser(userValue);
+      if (loggedInUser?.email) {
+        updateUser(userValue);
+      } else {
+        addUser(userValue);
+      }
     } else {
-      addUser(userValue);
+      toast.error(
+        "Username should not contain special characters or end or start with a number."
+      );
     }
-    setLoggedInUser(userValue);
     setShowModal(false);
   };
 
