@@ -39,6 +39,7 @@ export const Signup = () => {
         </h2>
         <form className="flex flex-col justify-center items-center gap-5">
           <TextField
+            fullWidth
             name="email"
             label="Email"
             variant="standard"
@@ -50,6 +51,7 @@ export const Signup = () => {
             onChange={handleChange}
           />
           <TextField
+            fullWidth
             name="password"
             label="Password"
             variant="standard"
@@ -61,6 +63,7 @@ export const Signup = () => {
             onChange={handleChange}
           />
           <TextField
+            fullWidth
             name="confirmPswd"
             label="Confirm Password"
             variant="standard"
