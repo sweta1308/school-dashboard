@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   createUserWithEmailAndPassword,
@@ -8,40 +8,43 @@ import {
 } from "firebase/auth";
 import { auth } from "../firebase/firebase";
 import toast from "react-hot-toast";
+import { userReducer } from "../reducers/UserReducer";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
-  const [user, setUser] = useState({ email: "", uid: "" });
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isAuthLoading, setIsAuthLoading] = useState(false);
+  const [userState, userDispatch] = useReducer(userReducer, {
+    user: { email: "", uid: "" },
+    isLoggedIn: false,
+    isAuthLoading: false,
+  });
 
   const signUpUser = async (email, password) => {
     try {
-      setIsAuthLoading(true);
+      userDispatch({ type: "SET_AUTH_LOADING", payload: true });
       await createUserWithEmailAndPassword(auth, email, password);
       toast.success("Signup successful");
-      setIsLoggedIn(true);
+      userDispatch({ type: "SET_LOGGED_IN", payload: true });
       navigate("/");
     } catch (err) {
       toast.error(err.message);
     } finally {
-      setIsAuthLoading(false);
+      userDispatch({ type: "SET_AUTH_LOADING", payload: false });
     }
   };
 
   const loginUser = async (email, password) => {
     try {
-      setIsAuthLoading(true);
+      userDispatch({ type: "SET_AUTH_LOADING", payload: true });
       await signInWithEmailAndPassword(auth, email, password);
       toast.success("Login successful");
-      setIsLoggedIn(true);
+      userDispatch({ type: "SET_LOGGED_IN", payload: true });
       navigate("/");
     } catch (err) {
       toast.error(err.message);
     } finally {
-      setIsAuthLoading(false);
+      userDispatch({ type: "SET_AUTH_LOADING", payload: false });
     }
   };
 
@@ -50,8 +53,8 @@ export const AuthProvider = ({ children }) => {
       await signOut(auth);
       toast.success("Logged out");
       navigate("/login");
-      setIsLoggedIn(false);
-      setUser({ email: "", uid: "" });
+      userDispatch({ type: "SET_LOGGED_IN", payload: false });
+      userDispatch({ type: "SET_USER", payload: { email: "", uid: "" } });
     } catch (err) {
       toast.error(err.message);
       console.log(err);
@@ -62,24 +65,25 @@ export const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (loggedInUser) => {
       const email = loggedInUser?.email;
       const uid = loggedInUser?.uid;
-      email && uid && setUser({ email, uid });
+      email &&
+        uid &&
+        userDispatch({ type: "SET_USER", payload: { email, uid } });
     });
     return () => unsubscribe();
   }, []);
 
   useEffect(() => {
-    if (user.email) {
-      setIsLoggedIn(true);
+    if (userState.user.email) {
+      userDispatch({ type: "SET_LOGGED_IN", payload: true });
     }
-  }, [user]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userState.user]);
 
   const value = {
-    isLoggedIn,
+    userState,
     signUpUser,
     loginUser,
     logoutUser,
-    user,
-    isAuthLoading,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

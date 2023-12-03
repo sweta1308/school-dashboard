@@ -13,7 +13,7 @@ import { db } from "../firebase/firebase";
 const SchoolContext = createContext();
 
 export const SchoolProvider = ({ children }) => {
-  const { user } = useAuth();
+  const { userState } = useAuth();
   const initialState = {
     schools: [],
     filters: {
@@ -33,7 +33,7 @@ export const SchoolProvider = ({ children }) => {
   const [schoolState, schoolDispatch] = useReducer(schoolReducer, initialState);
 
   useEffect(() => {
-    if (user.uid) {
+    if (userState.user.uid) {
       const unsubscribe = onSnapshot(collection(db, "school"), (snapshot) => {
         schoolDispatch({
           type: "SET_SCHOOLS",
@@ -47,7 +47,7 @@ export const SchoolProvider = ({ children }) => {
         unsubscribe();
       };
     }
-  }, [user]);
+  }, [userState.user]);
 
   const value = {
     schoolState,

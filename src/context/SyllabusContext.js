@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 const SyllabusContext = createContext();
 
 export const SyllabusProvider = ({ children }) => {
-  const { user } = useAuth();
+  const { userState } = useAuth();
   const [syllabus, setSyllabus] = useState([]);
   const [initialSyllabus, setInitialSyllabus] = useState({
     board: "",
@@ -23,7 +23,7 @@ export const SyllabusProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    if (user.uid) {
+    if (userState.user.uid) {
       const unsubscribe = onSnapshot(collection(db, "syllabus"), (snapshot) => {
         setSyllabus(
           snapshot.docs.map((doc) => ({
@@ -36,7 +36,7 @@ export const SyllabusProvider = ({ children }) => {
         unsubscribe();
       };
     }
-  }, [user]);
+  }, [userState.user]);
 
   const addSyllabus = async (syllabusData) => {
     try {

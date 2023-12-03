@@ -14,11 +14,11 @@ const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
-  const { user } = useAuth();
+  const { userState } = useAuth();
   const [loggedInUser, setLoggedInUser] = useState({});
 
   useEffect(() => {
-    if (user.uid) {
+    if (userState.user.uid) {
       const unsubscribe = onSnapshot(collection(db, "users"), (snapshot) => {
         setUsers(
           snapshot.docs.map((doc) => ({
@@ -32,13 +32,15 @@ export const UserProvider = ({ children }) => {
         unsubscribe();
       };
     }
-  }, [user]);
+  }, [userState.user]);
 
   useEffect(() => {
-    const currentUser = users.find((userData) => userData.email === user.email);
+    const currentUser = users.find(
+      (userData) => userData.email === userState.user.email
+    );
     setLoggedInUser(currentUser);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, [userState.user, users]);
 
   const addUser = async (user) => {
     try {

@@ -1,13 +1,13 @@
 import { Outlet, Navigate, useLocation } from "react-router-dom";
-import { useAuth } from "../../context";
+import { useAuth } from "../context/AuthContext";
 
-export function RestrictAuth() {
-  const { isLoggedIn } = useAuth();
+export const RestrictAuth = () => {
+  const { userState } = useAuth();
   const location = useLocation();
 
-  return isLoggedIn ? (
+  return userState.isLoggedIn ? (
     <Navigate to={location?.state?.from?.pathname || "/"} replace />
   ) : (
     <Outlet />
   );
-}
+};

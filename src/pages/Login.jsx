@@ -7,7 +7,7 @@ import { useAuth } from "../context/AuthContext";
 
 export const Login = () => {
   const navigate = useNavigate();
-  const { loginUser, isAuthLoading } = useAuth();
+  const { loginUser, userState } = useAuth();
   const [userLogin, setUserLogin] = useState({
     email: "",
     password: "",
@@ -56,10 +56,10 @@ export const Login = () => {
 
           <button
             onClick={loginHandler}
-            disabled={isAuthLoading}
+            disabled={userState.isAuthLoading}
             className="cursor-pointer bg-primary-color text-white w-full py-[5px] mt-[8px] rounded hover:bg-primary-dark"
           >
-            {isAuthLoading && (
+            {userState.isAuthLoading && (
               <span className="mr-[10px] mt-[10px]">
                 <ClipLoader color={`#fff`} size={20} />
               </span>

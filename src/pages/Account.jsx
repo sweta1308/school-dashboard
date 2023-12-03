@@ -6,14 +6,14 @@ import { UserModal } from "../components/UserModal";
 
 export const Account = () => {
   const { loggedInUser } = useUser();
-  const { user } = useAuth();
+  const { userState } = useAuth();
   const [showModal, setShowModal] = useState(false);
   return (
     <>
       {showModal && (
         <UserModal
           loggedInUser={loggedInUser}
-          user={user}
+          user={userState.user}
           showModal={showModal}
           setShowModal={setShowModal}
         />
@@ -44,7 +44,7 @@ export const Account = () => {
             </p>
             <p>
               <strong>Email: </strong>
-              {loggedInUser?.email ? loggedInUser.email : user.email}
+              {loggedInUser?.email ? loggedInUser.email : userState.user.email}
             </p>
             <p>
               <strong>Username: </strong>{" "}

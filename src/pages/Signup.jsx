@@ -6,7 +6,7 @@ import { TextField } from "@mui/material";
 import { useAuth } from "../context/AuthContext";
 
 export const Signup = () => {
-  const { signUpUser, isAuthLoading } = useAuth();
+  const { signUpUser, userState } = useAuth();
   const navigate = useNavigate();
   const [userSignup, setUserSignup] = useState({
     email: "",
@@ -77,10 +77,10 @@ export const Signup = () => {
 
           <button
             onClick={signUpHandler}
-            disabled={isAuthLoading}
+            disabled={userState.isAuthLoading}
             className="cursor-pointer bg-primary-color text-white w-full py-[5px] mt-[8px] rounded hover:bg-primary-dark"
           >
-            {isAuthLoading && (
+            {userState.isAuthLoading && (
               <span className="mr-[10px] mt-[10px]">
                 <ClipLoader color={`#fff`} size={20} />
               </span>
