@@ -17,7 +17,7 @@ export const Syllabus = () => {
       )}
       <div style={{ filter: showSyllabusModal ? "blur(8px)" : "" }}>
         <Sidebar />
-        <div className="relative left-[15%] w-[80%] pt-[40px] pl-[40px] rounded-xl md:left-0 md:w-full md:pl-0 md:px-[10px]">
+        <div className="relative left-[15%] w-[80%] pt-[40px] pl-[40px] rounded-xl md:left-0 md:w-full md:pl-0 md:pb-[110px] md:px-[10px]">
           <h1 className="font-bold text-[30px] md:text-center text-primary-color underline">
             Syllabus
           </h1>

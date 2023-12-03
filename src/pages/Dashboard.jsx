@@ -22,7 +22,7 @@ export const Dashboard = () => {
       )}
       <div style={{ filter: showSchoolModal ? "blur(8px)" : "" }}>
         <Sidebar />
-        <div className="relative left-[15%] w-[80%] pt-[40px] pl-[40px] rounded-xl md:pl-0 md:left-0 md:w-full">
+        <div className="relative left-[15%] w-[80%] pt-[40px] pl-[40px] rounded-xl md:pl-0 md:left-0 md:w-full md:pb-[110px]">
           <h1 className="font-bold text-[30px] md:text-center text-primary-color underline">
             Dashboard
           </h1>
