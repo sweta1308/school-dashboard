@@ -18,7 +18,7 @@ export const SchoolTable = ({
   setInitialSchoolData,
   setShowSchoolModal,
 }) => {
-  const { schoolDispatch } = useSchool();
+  const { schoolDispatch, schoolState } = useSchool();
   return (
     <div className="md:px-[15px]">
       <TableContainer component={Paper}>
@@ -28,20 +28,31 @@ export const SchoolTable = ({
               <Tooltip title="Sort By Name">
                 <TableCell
                   className="cursor-pointer"
+                  sx={{ fontWeight: "bold" }}
                   id="name"
                   onClick={() => {
                     schoolDispatch({ type: "NAME_SORT", payload: "name" });
+                    document.querySelector("#name").innerText = schoolState
+                      .filters.nameSort
+                      ? "School Name ↓"
+                      : "School Name ↑";
                   }}
                 >
-                  <strong>School Name</strong>
+                  School Name
                 </TableCell>
               </Tooltip>
               <Tooltip title="Sort By Board">
                 <TableCell
                   className="cursor-pointer"
                   align="left"
+                  sx={{ fontWeight: "bold" }}
+                  id="board"
                   onClick={() => {
                     schoolDispatch({ type: "BOARD_SORT", payload: "board" });
+                    document.querySelector("#board").innerText = schoolState
+                      .filters.boardSort
+                      ? "Board ↓"
+                      : "Board ↑";
                   }}
                 >
                   <strong>Board</strong>
@@ -51,8 +62,14 @@ export const SchoolTable = ({
                 <TableCell
                   className="cursor-pointer"
                   align="left"
+                  sx={{ fontWeight: "bold" }}
+                  id="medium"
                   onClick={() => {
                     schoolDispatch({ type: "MEDIUM_SORT", payload: "medium" });
+                    document.querySelector("#medium").innerText = schoolState
+                      .filters.mediumSort
+                      ? "Medium ↓"
+                      : "Medium ↑";
                   }}
                 >
                   <strong>Medium</strong>
