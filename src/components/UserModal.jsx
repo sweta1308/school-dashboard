@@ -60,6 +60,22 @@ export const UserModal = ({ loggedInUser, user, showModal, setShowModal }) => {
         <div style={style} className="bg-white z-40 p-[20px] rounded-lg">
           <h1 className="font-bold mb-[15px]">EDIT PROFILE</h1>
           <form className="flex flex-col gap-4" onSubmit={submitHandler}>
+            <label>
+              <p className="cursor-pointer my-[6px] p-[7px] border border-primary-color rounded-lg text-primary-color hover:bg-primary-color hover:text-white">
+                Upload From Photos
+              </p>
+              <input
+                className="hidden"
+                type="file"
+                accept="/image*"
+                onChange={(e) => {
+                  setUserValue({
+                    ...userValue,
+                    profilePicture: URL.createObjectURL(e.target.files[0]),
+                  });
+                }}
+              />
+            </label>
             <TextField
               name="name"
               label="Name"
@@ -93,18 +109,6 @@ export const UserModal = ({ loggedInUser, user, showModal, setShowModal }) => {
               required
               size="small"
               value={userValue.username}
-              onChange={handleChange}
-            />
-
-            <TextField
-              name="profilePicture"
-              label="Profile Picture Url"
-              variant="standard"
-              className="border-2 border-white"
-              type="url"
-              required
-              size="small"
-              value={userValue.profilePicture}
               onChange={handleChange}
             />
 
