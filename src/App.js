@@ -7,6 +7,7 @@ import { RequireAuth } from "./components/RequireAuth";
 import { Dashboard } from "./pages/Dashboard";
 import { Syllabus } from "./pages/Syllabus";
 import { Account } from "./pages/Account";
+import { NotFound } from "./pages/NotFound";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/syllabus" element={<Syllabus />} />
           <Route path="/account" element={<Account />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );
