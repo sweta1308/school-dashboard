@@ -33,3 +33,8 @@
 * Material UI
 * Firebase (Backend)
 * React hot toast
+
+## Dummy Login Data
+
+* Email - emily@test.com; Password - emily123
+* Email - johndoe@example.com; Password - john123
