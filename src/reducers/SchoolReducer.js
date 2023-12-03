@@ -2,6 +2,8 @@ export const schoolReducer = (state, { type, payload }) => {
   switch (type) {
     case "SET_SCHOOLS":
       return { ...state, schools: payload };
+    case "SET_EDIT_ID":
+      return { ...state, editId: payload };
     case "SEARCH_SCHOOL":
       return { ...state, filters: { ...state.filters, searchTerm: payload } };
     case "NAME_SORT":

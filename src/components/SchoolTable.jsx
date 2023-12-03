@@ -1,23 +1,16 @@
-import { Delete, Edit } from "@mui/icons-material";
 import {
   Paper,
   Table,
-  TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
   Tooltip,
 } from "@mui/material";
-import { deleteSchool } from "../utils/SchoolActions";
 import { useSchool } from "../context/SchoolContext";
+import { SchoolTableBody } from "./SchoolTableBody";
 
-export const SchoolTable = ({
-  filteredSchool,
-  setIsEdit,
-  setInitialSchoolData,
-  setShowSchoolModal,
-}) => {
+export const SchoolTable = ({ filteredSchool }) => {
   const { schoolDispatch, schoolState } = useSchool();
   return (
     <div className="md:px-[15px]">
@@ -83,52 +76,7 @@ export const SchoolTable = ({
               </TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
-            {filteredSchool?.map((school) => (
-              <TableRow
-                key={school.id}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {school.name}
-                </TableCell>
-                <TableCell align="left">{school.board}</TableCell>
-                <TableCell align="left">{school.medium}</TableCell>
-                <TableCell align="left">{school.class}</TableCell>
-                <TableCell align="left">
-                  <span
-                    onClick={() => {
-                      setIsEdit(true);
-                      setInitialSchoolData(school);
-                      setShowSchoolModal(true);
-                    }}
-                  >
-                    <Tooltip title="Edit">
-                      <Edit
-                        sx={{
-                          color: "gray",
-                          fontSize: "20px",
-                          cursor: "pointer",
-                        }}
-                      />
-                    </Tooltip>
-                  </span>
-                  <span onClick={() => deleteSchool(school?.id)}>
-                    <Tooltip title="Delete">
-                      <Delete
-                        sx={{
-                          marginLeft: "20px",
-                          color: "red",
-                          fontSize: "20px",
-                          cursor: "pointer",
-                        }}
-                      />
-                    </Tooltip>
-                  </span>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
+          <SchoolTableBody data={filteredSchool} />
         </Table>
       </TableContainer>
     </div>

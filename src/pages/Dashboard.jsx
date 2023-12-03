@@ -6,9 +6,8 @@ import { SchoolTable } from "../components/SchoolTable";
 import { filterSchool } from "../utils/FilterSchool";
 
 export const Dashboard = () => {
-  const { schoolState, schoolDispatch, setInitialSchoolData } = useSchool();
+  const { schoolState, schoolDispatch } = useSchool();
   const [showSchoolModal, setShowSchoolModal] = useState(false);
-  const [isEdit, setIsEdit] = useState(false);
   const filteredSchool = filterSchool(schoolState);
   return (
     <>
@@ -16,8 +15,6 @@ export const Dashboard = () => {
         <AddSchoolModal
           showSchoolModal={showSchoolModal}
           setShowSchoolModal={setShowSchoolModal}
-          isEdit={isEdit}
-          setIsEdit={setIsEdit}
         />
       )}
       <div style={{ filter: showSchoolModal ? "blur(8px)" : "" }}>
@@ -45,12 +42,7 @@ export const Dashboard = () => {
               No Schools Found.
             </h2>
           ) : (
-            <SchoolTable
-              filteredSchool={filteredSchool}
-              setIsEdit={setIsEdit}
-              setInitialSchoolData={setInitialSchoolData}
-              setShowSchoolModal={setShowSchoolModal}
-            />
+            <SchoolTable filteredSchool={filteredSchool} />
           )}
         </div>
       </div>

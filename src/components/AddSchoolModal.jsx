@@ -1,13 +1,8 @@
 import { Modal, TextField } from "@mui/material";
 import { useSchool } from "../context/SchoolContext";
-import { addSchool, updateSchool } from "../utils/SchoolActions";
+import { addSchool } from "../utils/SchoolActions";
 
-export const AddSchoolModal = ({
-  showSchoolModal,
-  setShowSchoolModal,
-  isEdit,
-  setIsEdit,
-}) => {
+export const AddSchoolModal = ({ showSchoolModal, setShowSchoolModal }) => {
   const { initialSchoolData, setInitialSchoolData } = useSchool();
   const style = {
     position: "absolute",
@@ -27,12 +22,7 @@ export const AddSchoolModal = ({
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (isEdit) {
-      updateSchool(initialSchoolData, initialSchoolData?.id);
-      setIsEdit(false);
-    } else {
-      addSchool(initialSchoolData);
-    }
+    addSchool(initialSchoolData);
     setInitialSchoolData({ name: "", board: "", medium: "", class: "" });
     setShowSchoolModal(false);
   };
@@ -46,9 +36,7 @@ export const AddSchoolModal = ({
         aria-describedby="modal-modal-description"
       >
         <div style={style} className="bg-white z-40 p-[20px] rounded-lg">
-          <h1 className="font-bold mb-[15px]">
-            {isEdit ? "EDIT" : "ADD"} SCHOOL
-          </h1>
+          <h1 className="font-bold mb-[15px]">ADD SCHOOL</h1>
           <form className="flex flex-col gap-4" onSubmit={submitHandler}>
             <TextField
               name="name"
@@ -108,7 +96,6 @@ export const AddSchoolModal = ({
                 className="px-[15px] py-[5px] border border-primary-color rounded-md text-primary-color hover:bg-primary-color hover:text-white"
                 onClick={() => {
                   setShowSchoolModal(false);
-                  setIsEdit(false);
                   setInitialSchoolData({
                     name: "",
                     board: "",

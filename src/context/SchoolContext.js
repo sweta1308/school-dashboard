@@ -16,6 +16,7 @@ export const SchoolProvider = ({ children }) => {
   const { userState } = useAuth();
   const initialState = {
     schools: [],
+    editId: null,
     filters: {
       searchTerm: "",
       sortType: "",
