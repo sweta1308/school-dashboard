@@ -8,6 +8,7 @@ import { Dashboard } from "./pages/Dashboard";
 import { Syllabus } from "./pages/Syllabus";
 import { Account } from "./pages/Account";
 import { NotFound } from "./pages/NotFound";
+import { RestrictAuth } from "./components/RestrictAuth";
 
 function App() {
   return (
@@ -22,8 +23,10 @@ function App() {
         }}
       />
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route element={<RestrictAuth />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+        </Route>
         <Route element={<RequireAuth />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/syllabus" element={<Syllabus />} />
