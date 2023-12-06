@@ -21,7 +21,7 @@ export const Dashboard = () => {
         <Sidebar />
         <div className="relative left-[15%] w-[80%] pt-[40px] pl-[40px] rounded-xl md:pl-0 md:left-0 md:w-full md:pb-[110px]">
           <h1 className="font-bold text-[30px] md:text-center text-primary-color underline">
-            Dashboard
+            Dashboard Manager
           </h1>
           <button
             onClick={() => setShowSchoolModal(true)}
